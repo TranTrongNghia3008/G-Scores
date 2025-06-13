@@ -40,11 +40,9 @@ class TopGroupView(APIView):
 
         queryset = StudentScore.objects.all()
 
-        # Lọc theo mã ngoại ngữ nếu cần
         if group in FOREIGN_LANG_CODES:
             queryset = queryset.filter(ma_ngoai_ngu=FOREIGN_LANG_CODES[group])
 
-        # Tính tổng điểm 3 môn
         total_score_expr = sum(Coalesce(F(subject), Value(0.0)) for subject in subjects)
         queryset = queryset.annotate(
             total_score=ExpressionWrapper(total_score_expr, output_field=FloatField())

@@ -9,4 +9,4 @@ class StudentScoreAdmin(admin.ModelAdmin):
         'lich_su', 'dia_li', 'gdcd', 'ma_ngoai_ngu',
     )
     search_fields = ('sbd',)
-    list_per_page = 100  # Hiển thị 100 bản ghi mỗi trang (tuỳ chỉnh)
+    list_per_page = 100 

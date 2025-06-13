@@ -12,7 +12,14 @@ class ScoreLookupView(APIView):
 
         try:
             student = StudentScore.objects.get(sbd=sbd)
-            serializer = StudentScoreSerializer(student)
+
+            group_subjects = [
+                "toan", "ngu_van", "ngoai_ngu", "vat_li",
+                "hoa_hoc", "sinh_hoc", "lich_su", "dia_li", "gdcd"
+            ]
+
+            serializer = StudentScoreSerializer(student, context={"group_subjects": group_subjects})
             return Response(serializer.data)
+
         except StudentScore.DoesNotExist:
             return Response({"error": "Student not found."}, status=status.HTTP_404_NOT_FOUND)
