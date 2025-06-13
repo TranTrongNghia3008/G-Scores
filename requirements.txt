@@ -4,4 +4,5 @@ watchdog
 djangorestframework
 django-cors-headers
 google-genai
+dj_database_url
 
