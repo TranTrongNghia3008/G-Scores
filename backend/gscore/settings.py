@@ -20,12 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-SECRET_KEY = os.getenv('SECRET_KEY', 'insecure-key-for-dev')  # fallback khi local
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-by1t1yw0+*^9)(69s#rl0^)_c4_v!k0wwe_$z%=qg5&0v=4pg3'
 
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
-
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -39,11 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'scores',
     'rest_framework',
-    "corsheaders",
 ]
 
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -82,8 +81,8 @@ DATABASES = {
         'NAME': os.getenv('POSTGRES_DB'),
         'USER': os.getenv('POSTGRES_USER'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': os.getenv('POSTGRES_HOST'),
-        'PORT': os.getenv('POSTGRES_PORT', '5432'),
+        'HOST': 'db',  # Tên service trong docker-compose.yml
+        'PORT': '5432',
     }
 }
 
@@ -123,18 +122,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-if DEBUG:
-    CORS_ALLOW_ALL_ORIGINS = True
-else:
-    CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',')
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # React app local
-]
