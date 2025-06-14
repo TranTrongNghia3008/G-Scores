@@ -84,7 +84,7 @@ Showcase the top 5 students with the highest total scores across the country.
 
 ---
 
-### 📈 Score Distribution by Subject
+### Score Distribution by Subject
 
 Select a subject (e.g., **Toán**, **Lý**, **Văn**, ...) to view a chart showing how many students scored each possible point.
 
