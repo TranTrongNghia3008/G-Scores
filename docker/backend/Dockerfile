@@ -28,4 +28,4 @@ COPY backend/diem_thi_thpt_2024.csv /app/
 EXPOSE 8000
 
 # ✅ Run migrations, import data, rồi chạy server
-CMD ["sh", "-c", "python manage.py migrate && python manage.py import_scores && python manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
