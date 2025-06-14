@@ -137,6 +137,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "https://g-scores-sigma.vercel.app",
+    "https://g-scores-iyke.vercel.app",
     "http://localhost:5173",
 ]
