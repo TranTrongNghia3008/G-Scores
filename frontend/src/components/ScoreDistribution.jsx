@@ -40,7 +40,7 @@ const SUBJECT_OPTIONS = [
 ];
 
 
-const ScoreDistribution = () => {
+const ScoreDistribution = ({ reloadKey }) => {
     const [selectedSubject, setSelectedSubject] = useState("toan");
     const [distribution, setDistribution] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -66,7 +66,7 @@ const ScoreDistribution = () => {
 
     useEffect(() => {
         loadData(selectedSubject);
-    }, [selectedSubject]);
+    }, [selectedSubject, reloadKey]);
 
     const isForeignLanguage = selectedSubject.startsWith("ngoai_ngu_");
     const langCode = isForeignLanguage ? selectedSubject.split("_").pop() : null;
@@ -95,14 +95,18 @@ const ScoreDistribution = () => {
                     <span>Loading chart...</span>
                 </div>
             ) : (
-                <ResponsiveContainer width="100%" height={400}>
-                <BarChart data={distribution}>
-                    <XAxis dataKey="score" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="count" fill="#60a5fa" />
-                </BarChart>
-                </ResponsiveContainer>
+                distribution.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={400}>
+                    <BarChart data={distribution}>
+                        <XAxis dataKey="score" />
+                        <YAxis />
+                        <Tooltip />
+                        <Bar dataKey="count" fill="#60a5fa" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                    <div className="text-center text-gray-600">No data available for this subject.</div>
+                )
             )}
         </Card>
     );

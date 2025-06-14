@@ -81,34 +81,38 @@ const ScoreReportChart = () => {
           <span>Loading report...</span>
         </div>
       ) : (
-        <>
-          <ResponsiveContainer width="100%" height={400}>
-            <BarChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-              <XAxis dataKey="subject" />
-              <YAxis tickFormatter={(v) => `${(v / 1000)}k`} />
-              <Tooltip formatter={(v) => v.toLocaleString()} />
-              <Legend />
-              {Object.keys(LEVEL_COLORS).map((level) => (
-                <Bar key={level} dataKey={level} stackId="a" fill={LEVEL_COLORS[level]} />
-              ))}
-            </BarChart>
-          </ResponsiveContainer>
+        chartData.length > 0 ? (
+          <>
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                <XAxis dataKey="subject" />
+                <YAxis tickFormatter={(v) => `${(v / 1000)}k`} />
+                <Tooltip formatter={(v) => v.toLocaleString()} />
+                <Legend />
+                {Object.keys(LEVEL_COLORS).map((level) => (
+                  <Bar key={level} dataKey={level} stackId="a" fill={LEVEL_COLORS[level]} />
+                ))}
+              </BarChart>
+            </ResponsiveContainer>
 
-          <div className="mt-8">
-            <h3 className="text-lg font-semibold mb-2">AI Analysis</h3>
-            {analyzing ? (
-              <div className="flex items-center text-gray-600">
-                <FiLoader className="animate-spin text-xl mr-2" />
-                <span>Generating analysis...</span>
-              </div>
-            ) : (
-              <div
-                className="prose max-w-none"
-                dangerouslySetInnerHTML={{ __html: analysis }}
-              />
-            )}
-          </div>
-        </>
+            <div className="mt-8">
+              <h3 className="text-lg font-semibold mb-2">AI Analysis</h3>
+              {analyzing ? (
+                <div className="flex items-center text-gray-600">
+                  <FiLoader className="animate-spin text-xl mr-2" />
+                  <span>Generating analysis...</span>
+                </div>
+              ) : (
+                <div
+                  className="prose max-w-none"
+                  dangerouslySetInnerHTML={{ __html: analysis }}
+                />
+              )}
+            </div>
+          </>
+        ) : (
+          <div className="text-gray-600">No data available for score report.</div>
+        )
       )}
     </Card>
   );

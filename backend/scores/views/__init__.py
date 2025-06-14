@@ -5,4 +5,5 @@ from .stats_overview_view import StatsOverviewView
 from .top_national_view import TopNationalView  
 from .score_distribution_view import ScoreDistributionView
 from .ai_analysis_view import AIAnalysisView
+from .upload_csv_view import UploadCSVView
 

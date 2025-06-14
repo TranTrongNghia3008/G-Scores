@@ -5,11 +5,13 @@ import MainLayout from "../layouts/MainLayout";
 import StatsOverview from "../StatsOverview";
 import TopNational from "../TopNational";
 import ScoreDistribution from "../ScoreDistribution";
+import CSVUploader from "../CSVUploader";
 
 const Dashboard = () => {
   const [totalStudents, setTotalStudents] = useState(0);
   const [topStudents, setTopStudents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     const loadDashboardData = async () => {
@@ -29,8 +31,11 @@ const Dashboard = () => {
     };
 
     loadDashboardData();
-  }, []);
+  }, [reloadKey]);
 
+  const handleUploadSuccess = () => {
+    setReloadKey(prev => prev + 1); // mỗi lần tăng key => force reload các component con
+  };
 
   return (
     <MainLayout>
@@ -41,9 +46,10 @@ const Dashboard = () => {
             </div>
         ) : (
             <>
+                <CSVUploader onUploadSuccess={handleUploadSuccess} />
                 <StatsOverview totalStudents={totalStudents} />
                 <TopNational students={topStudents} />
-                <ScoreDistribution />
+                <ScoreDistribution reloadKey={reloadKey} />
             </>
         )}
     </MainLayout>

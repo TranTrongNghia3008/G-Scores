@@ -34,4 +34,13 @@ export async function fetchAnalyzeScoreReport(report) {
     });
 }
 
+export async function uploadCSV(file) {
+   const formData = new FormData();
+   formData.append("file", file);
+   return apiClient("/api/upload/", {
+       method: "POST",
+       body: formData,
+   });
+}
+
 
